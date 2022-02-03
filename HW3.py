@@ -33,7 +33,7 @@ while i < len(step0):  #  while iterator < length of the list:
 step1 = [i.strip().capitalize() for i in step0]  #  trims and capitalizes every value inside the list
 #print(repr(step1))
 
-step2 = ' '.join(step1)  #  creating a string from the list, using whitespace as separator
+step2 = ' '.join(step1)  #  creating a string from the list, using space as separator
 #print(repr(step2))
 
 #  the point of steps3, step4 and step5 is to capitalize sentences inside the line, that wasn't capitalized on the step0
@@ -46,7 +46,10 @@ step4 = [i.capitalize() for i in step3]  #  capitalizing every string in the lis
 step5 = '. '.join(step4)  #  creating a string from the list, using dot and whitespace as separator
 #print(step5)
 
-step6 = step5.replace('Homework.', 'Homework:').replace('tex.', 'text.').replace('“iz”', ' “iz”').replace(' iz ', ' is ')  #  replacing typos
+#  replacing typos, adding paragraphs where they were before
+step6 = step5.replace('Homework.', 'Homework:\n').replace('tex.', 'text.').replace('“iz”', ' “iz”').replace(' iz ', ' is ')\
+    .replace('variable.', 'variable.\n').replace('paragraph.', 'paragraph.\n').replace('mistake.', 'mistake.\n')\
+    .replace('87.', '87.\n')
 #print(step6)  #  <- Final version of the processed initial text is contained in step6
 
 #  the next step is creating additional sentence with last words of each existing sentence at the end of the processed text (step6)
@@ -62,7 +65,8 @@ for i in range(len(step7)):  #  for every word in the list
 final_text = step6 + ' ' + ' '.join(last_words_list) + '.'  #  adding the sentence to the processed text
 #print(final_text)
 
-whitespace_counter = '\n\nWhitespaces in text: ' + str(final_text.count(' '))  #  counting all whitespaces
+counter = final_text.count(' ') + final_text.count('\n') + final_text.count('\t')  #  counting all whitespaces
+whitespace_counter = '\n\nWhitespaces in text: ' + str(counter)  
 
 result = 'Before:\n\n' + input + '\n\nAfter:\n\n' + final_text + whitespace_counter  #  forming the result for printing
 
