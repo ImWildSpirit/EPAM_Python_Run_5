@@ -1,7 +1,8 @@
 #  ---Homework #2 refactoring---
 
-hashable_types = [int, float, str, tuple]
+hashable_types = [int, float, str, tuple]  #  seed for random function can be hashable type only
 
+#  ensures that generated values will be the same with every run
 def random_manipulator(n):
     from random import seed
     if type(n) in hashable_types:
@@ -10,6 +11,7 @@ def random_manipulator(n):
         print('Seed value must be hashable type!')
         exit
 
+#  generates list of dictionaries with given amount, length, min. value, max. value and random seed (optional)
 def list_of_dicts_generator(length, amount, min_value, max_value, seed = 1):
     from random import choice, randint
     from string import ascii_lowercase
@@ -33,7 +35,8 @@ def list_of_dicts_generator(length, amount, min_value, max_value, seed = 1):
             random_manipulator([0])
             exit 
     return sample 
-        
+
+#  builds result dictionary from the given list of dictionaries
 def dict_builder(sample_list):
     from collections import defaultdict
     
@@ -63,6 +66,7 @@ def dict_builder(sample_list):
 
 #  ---Homework #3 refactoring---
 
+#  Normalizes the given string from letter cases point of view. Also adds spaces before quotes
 def text_normalizer(input):
     import re
 
@@ -115,6 +119,7 @@ def text_normalizer(input):
     
     return result
 
+#  adds the sentence to the end that made of last words of each sentence of the given string
 def last_words_sentence(input):
     import re
 
@@ -126,13 +131,14 @@ def last_words_sentence(input):
     last_words_list = []
 
     for i in range(len(tmp)):
-        if re.findall('[:.?!]', tmp[i]):  #  if it contains punctuation
-            last_words_list.append(re.sub('[:.?!]', '', tmp[i]))  #  removing the punctuation symbol and appending this word to the list
+        if re.findall('[:.?!]', tmp[i]):  
+            last_words_list.append(re.sub('[:.?!]', '', tmp[i]))
 
-    sentence = input + ' ' + ' '.join(last_words_list) + '.'  #  adding the sentence to the processed text
+    sentence = input + ' ' + ' '.join(last_words_list) + '.'
     
     return sentence
 
+#  counts every whitespace (spaces, tab, new line symbols) in the given string
 def whitespaces_counter(input):
     if type(input) != str:
         print(f'Error: whitespace_counter function expects a string as an argument, but {type(input)} found')
