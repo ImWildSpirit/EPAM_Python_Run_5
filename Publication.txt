@@ -1,16 +1,23 @@
-Hello world. Nothing happened today.
-Bakhmut, 08/02/2022
+News feed:
 
 
-Want to sell sofa. ASAP, low price. Call 0900-123-45-67.
-Actual until: 28/02/2022, 20 days till expire.
+-----News:-----
+Nothing happened today. Everything is fine.
+Bakhmut, 14/02/2022
 
 
+-----Private ad:-----
+I want to sell garage. Low price. Please call 1-800-123-45-67 if interested.
+Actual until: 28/02/2022, 14 days till expire.
+
+
+-----Private ad:-----
+Outdated private ad example.
+Actual until: 01/01/2022, Outdated.
+
+
+-----Review:-----
 Pacman
 Game of the year!
 Final score: 10/10,
-Artem Larin, 08/02/2022
-
-
-Outdated private ad example.
-Actual until: 01/01/2020, Outdated.
+Artem Larin, 14/02/2022

@@ -7,7 +7,7 @@ class News:
 
     # Initialization module. If needed to upload to another file, file name can be specified on initializing.
     # Example: News('Filename.txt')
-    def __init__(self, file_name = 'Publication.txt'):
+    def __init__(self, file_name='Publication.txt'):
         # Class review. Here all the class variables initialized first
         self.text = None
         self.city = None
@@ -65,17 +65,17 @@ class News:
         if not path.exists(self.file_name):  # If file doesn't exist:
             # Create file, open it, write the following and close it ({with} construction)
             with open(self.file_name, 'w+') as file:
-                file.write(f'{self.text}\n{self.city}, {self.time}')
+                file.write(f'News feed:\n\n\n-----News:-----\n{self.text}\n{self.city}, {self.time}')
 
         else:  # If file exists:
             if stat(self.file_name).st_size != 0:  # If file is not empty:
                 # Open it, append the following to the end of file and close it ({with} construction)
                 with open(self.file_name, 'a') as file:
-                    file.write(f'\n\n\n{self.text}\n{self.city}, {self.time}')
+                    file.write(f'\n\n\n-----News:-----\n{self.text}\n{self.city}, {self.time}')
             else:  # If file is empty:
                 # Open it, write the following and close it ({with} construction)
                 with open(self.file_name, 'w') as file:
-                    file.write(f'{self.text}\n{self.city}, {self.time}')
+                    file.write(f'-----News:-----\n{self.text}\n{self.city}, {self.time}')
 
     # Entry point for this and inherited classes
     def main(self):
@@ -87,7 +87,7 @@ class PrivateAd(News):
 
     # Initialization module. If needed to upload to another file, file name can be specified on initializing.
     # Example: PrivateAd('Filename.txt')
-    def __init__(self, file_name = 'Publication.txt'):
+    def __init__(self, file_name='Publication.txt'):
         # Class review. Here all the class variables initialized first
         self.exp_date = None
         self.expire_count = None
@@ -104,7 +104,7 @@ class PrivateAd(News):
         # ValueError error handling
         except ValueError:
             print('Invalid date format! dd/mm/yyyy required!')
-            self.__set_expiration_date()
+            return self.__set_expiration_date()
 
         # KeyboardInterrupt error handling
         except KeyboardInterrupt:
@@ -116,15 +116,39 @@ class PrivateAd(News):
         return self.__set_expiration_date()
 
     # Public method to calculate the amount of days till ad expiration
-    def get_days_till_expire(self):
+    def get_days_till_expire(self, custom_date=''):
 
         today = date.today()  # Obtains current date
-        result = self.exp_date - today  # Dates subtraction
+
+        # Dates subtraction
+        if custom_date == '':
+            result = self.exp_date - today
+        else:
+            result = custom_date - today
 
         if result >= timedelta(days=0):  # If result is more or equal to 0 days:
             return f'{str(result.days)} days till expire.'  # Return string with amount of days till expiration
+
         else:
-            return 'Outdated.'  # Return 'Outdated.' otherwise
+            # Ask user confirmation otherwise
+            try:
+                confirm = input('Seems like the date you entered is already expired. Do you want to publish with this date anyway (Ad will be marked as "Outdated")? (y/n)\n')
+                if confirm.lower().strip() == 'y':
+                    return 'Outdated.'  # Return 'Outdated.' if confirmed
+                elif confirm.lower().strip() == 'n':
+                    return self.get_days_till_expire(custom_date=self.get_expiration_date())  # Enter new date otherwise
+                else:
+                    raise ValueError
+
+            # ValueError error handling
+            except ValueError:
+                print(f'Invalid entry value (expected: y or n, but {confirm if confirm != "" else "nothing"} found)')
+                return self.get_days_till_expire()
+
+            # KeyboardInterrupt error handling
+            except KeyboardInterrupt:
+                print('Terminated')
+                exit()
 
     # Public method to publish the ad to a specified file
     def publish(self):
@@ -136,16 +160,15 @@ class PrivateAd(News):
         # Upload section (see the News() class for the full logic)
         if not path.exists(self.file_name):
             with open(self.file_name, 'w+') as file:
-                file.write(f'{self.text}\nActual until: {self.exp_date}, {self.expire_count}')
+                file.write(f'News feed:\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date}, {self.expire_count}')
 
         else:
             if stat(self.file_name).st_size != 0:
                 with open(self.file_name, 'a') as file:
-                    file.write(
-                        f'\n\n\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
+                    file.write(f'\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
             else:
                 with open(self.file_name, 'w') as file:
-                    file.write(f'{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
+                    file.write(f'-----Private ad:-----\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
 
 
 # Custom Review class implementation. Review inherits methods from the News class.
@@ -153,7 +176,7 @@ class Review(News):
 
     # Initialization module. If needed to upload to another file, file name can be specified on initializing.
     # Example: Review('Filename.txt')
-    def __init__(self, file_name = 'Publication.txt'):
+    def __init__(self, file_name='Publication.txt'):
         # Class review. Here all the class variables initialized first
         self.author = None
         self.title = None
@@ -214,7 +237,7 @@ class Review(News):
                     return output
                 else:
                     print('Your score has to be from 0 to 10!')
-                    self.__set_rating()
+                    return self.__set_rating()
 
             # ValueError error handling (other type of value or blank)
             except ValueError:
@@ -241,29 +264,62 @@ class Review(News):
         # Upload section (see the News class for the full logic)
         if not path.exists(self.file_name):
             with open(self.file_name, 'w+') as file:
-                file.write(f'{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
+                file.write(f'News feed:\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
 
         else:
             if stat(self.file_name).st_size != 0:
                 with open(self.file_name, 'a') as file:
-                    file.write(
-                        f'\n\n\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
+                    file.write(f'\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
             else:
                 with open(self.file_name, 'w') as file:
-                    file.write(f'{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
+                    file.write(f'-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
 
 
-# -----------Testing playground-------------
-# Script entry point, edit main() function to customize the testing process
-def main():
-    print('------------Adding news------------')
-    News()
-    print('------------Adding private ad------------')
-    PrivateAd()
-    print('------------Adding review------------')
-    Review()
+# Script main function, edit to customize the interface
+def main(file_name='Publication.txt'):
+    try:
+        article = input("""Please choose the type of article you want to add and press Enter button:
+        1 - News
+        2 - Private ad
+        3 - Review\n""")
+
+        if article == '1':
+            print('------------Adding news------------')
+            News(file_name)
+
+        elif article == '2':
+            print('------------Adding private ad------------')
+            PrivateAd(file_name)
+
+        elif article == '3':
+            print('------------Adding review------------')
+            Review(file_name)
+
+        else:
+            print('Incorrect article type\n')
+            main(file_name)
+
+    # KeyboardInterrupt error handling
+    except KeyboardInterrupt:
+        print('\nTerminated.')
+        exit()
+
+    # Additional article confirmation
+    try:
+        confirm = input('Do you want to add another article? (Input y to add another article, input any other button to exit)\n')
+
+        if confirm.lower().strip() == 'y':
+            main(file_name)
+
+        else:
+            exit()
+
+    # KeyboardInterrupt error handling
+    except KeyboardInterrupt:
+        print('\nTerminated.')
+        exit()
 
 
-# Script will run only if not imported to another module.
+# Script entry point. It will run only if not imported to another module.
 if __name__ == '__main__':
     main()
