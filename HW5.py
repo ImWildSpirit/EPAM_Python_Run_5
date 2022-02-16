@@ -13,9 +13,7 @@ class News:
         self.city = None
         self.time = None
         self.file_name = file_name
-
-        if __name__ == '__main__':
-            self.main()
+        self.main()
 
     # Gets and returns the article text from the user input
     def __set_text(self):
@@ -75,7 +73,7 @@ class News:
             else:  # If file is empty:
                 # Open it, write the following and close it ({with} construction)
                 with open(self.file_name, 'w') as file:
-                    file.write(f'-----News:-----\n{self.text}\n{self.city}, {self.time}')
+                    file.write(f'News feed:\n\n\n-----News:-----\n{self.text}\n{self.city}, {self.time}')
 
     # Entry point for this and inherited classes
     def main(self):
@@ -168,7 +166,7 @@ class PrivateAd(News):
                     file.write(f'\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
             else:
                 with open(self.file_name, 'w') as file:
-                    file.write(f'-----Private ad:-----\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
+                    file.write(f'News feed:\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
 
 
 # Custom Review class implementation. Review inherits methods from the News class.
@@ -272,7 +270,7 @@ class Review(News):
                     file.write(f'\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
             else:
                 with open(self.file_name, 'w') as file:
-                    file.write(f'-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
+                    file.write(f'News feed:\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
 
 
 # Script main function, edit to customize the interface
