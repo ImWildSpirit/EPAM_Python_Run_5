@@ -2,4 +2,5 @@
 Ex_Files_Python_Data_Visualization/**
 /.idea
 *.iml
-Presentations/**
+Presentations
+__pycache__
