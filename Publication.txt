@@ -23,10 +23,24 @@ Final score: 10/10,
 Artem Larin, 14/02/2022
 
 
+-----News:-----
+Homework #6 news example:
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et pretium lacus. Donec dapibus nulla sit amet libero rutrum, sed vestibulum velit porta. Ut elit metus, sagittis eget accumsan et, ornare nec risus. Duis bibendum enim quis massa mollis, vulputate suscipit ipsum aliquam. Sed rhoncus mollis ipsum, ut placerat ipsum bibendum molestie. Nulla et sem hendrerit, euismod ex eget, tincidunt metus. In molestie ligula vitae mollis pretium. Vestibulum maximus orci orci, vel interdum odio sollicitudin sit amet. Aliquam ante orci, auctor at diam at, rhoncus feugiat nunc. Nunc tempor tincidunt tincidunt. Sed nec erat ut diam sodales auctor suscipit auctor nisl. Praesent sagittis ornare dignissim.
+Phasellus ac est vitae turpis volutpat consequat. Aenean auctor risus sit amet venenatis tristique. Donec non nisi suscipit, dignissim velit sed, lobortis turpis. Sed ut vulputate lorem. Integer feugiat leo ut sagittis suscipit. Praesent nec dolor id urna gravida fringilla. Nunc ullamcorper, lorem ac interdum pretium, quam orci dignissim tortor, pellentesque congue augue mi nec nisl. Nulla facilisi. In interdum felis sed urna mattis consequat. Ut lectus ipsum, hendrerit at tellus et, gravida mattis lacus. Ut ultricies elit tempor, fringilla libero eget, tincidunt est. Curabitur a justo orci. Nam vitae accumsan purus, molestie pharetra est. Etiam at gravida elit, vel interdum metus.
+Sed vel elit auctor, sodales neque vitae, aliquet est. Suspendisse pellentesque varius accumsan. Aliquam pellentesque mi sit amet elit facilisis, eu ullamcorper justo mattis. Vestibulum vestibulum tortor eget orci cursus, vel varius sem scelerisque. Aenean sed dapibus quam. Curabitur pretium imperdiet mauris id condimentum. Etiam sed arcu nec lorem laoreet tincidunt. Aliquam vel nisl imperdiet, volutpat nisl ut, condimentum leo. Donec at leo in nisi imperdiet accumsan eget eu dolor. Aenean lacinia nunc urna, nec congue purus elementum et.
+London, 19/02/2022
+
+
+-----Private ad:-----
+Homework #6 private ad example:
+Lorem! Ipsum?
+Dolor: Sit; Amet.
+Actual until: 22/02/2022, 3 days till expire.
+
+
 -----Review:-----
-Homework #6
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et pretium lacus. Donec dapibus nulla sit amet libero rutrum, sed vestibulum velit porta. Ut elit metus, sagittis eget accumsan et, ornare nec risus. Duis bibendum enim quis massa mollis, vulputate suscipit ipsum aliquam. Sed rhoncus mollis ipsum, ut placerat ipsum bibendum molestie. Nulla et sem hendrerit, euismod ex eget, tincidunt metus. In molestie ligula vitae mollis pretium. Vestibulum maximus orci orci, vel interdum odio sollicitudin sit amet. Aliquam ante orci, auctor at diam at, rhoncus feugiat nunc. Nunc tempor tincidunt tincidunt. Sed nec erat ut diam sodales auctor suscipit auctor nisl. Praesent sagittis ornare dignissim. 
-Phasellus ac est vitae turpis volutpat consequat. Aenean. Auctor risus sit amet venenatis tristique. Donec non nisi suscipit, dignissim velit sed, lobortis turpis. Sed ut vulputate lorem. Integer feugiat leo ut sagittis suscipit. Praesent nec dolor id urna gravida fringilla. Nunc ullamcorper, lorem ac interdum pretium, quam orci dignissim tortor, pellentesque congue augue mi nec nisl. Nulla facilisi. In interdum felis sed urna mattis consequat. Ut lectus ipsum, hendrerit at tellus et, gravida mattis lacus. Ut ultricies elit tempor, fringilla libero eget, tincidunt est. Curabitur a justo orci. Nam vitae accumsan purus, molestie pharetra est. Etiam at gravida elit, vel interdum metus. 
-Sed vel elit auctor, sodales neque vitae, aliquet est. Suspendisse: pellentesque varius accumsan. Aliquam. Pellentesque mi sit amet elit facilisis, eu ullamcorper justo mattis. Vestibulum vestibulum tortor eget orci cursus, vel varius sem scelerisque. Aenean sed dapibus quam. Curabitur pretium imperdiet mauris id condimentum. Etiam sed arcu nec lorem laoreet tincidunt. Aliquam vel nisl imperdiet, volutpat nisl ut, condimentum leo. Donec at leo in nisi imperdiet accumsan eget eu dolor. Aenean lacinia nunc urna, nec congue purus elementum et.
+Homework #6 review example
+Sed vel elit auctor
+sodales neque vitae, aliquet est.
 Final score: 10/10,
-Artem Larin, 16/02/2022
+Artem Larin, 19/02/2022
