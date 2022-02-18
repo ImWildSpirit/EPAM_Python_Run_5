@@ -75,6 +75,7 @@ def text_normalizer(input):
         exit
     
     step0 = input.lower().splitlines()
+    step0a = input.lower()
 
     i = 0
     while i < len(step0):
@@ -85,24 +86,20 @@ def text_normalizer(input):
             i+=1
     
     step1 = [i.strip().capitalize() for i in step0]
-
+    
     step2 = '\n'.join(step1)
 
-    step3 = re.split('[.?!;]', step2)
-
-    for i in range(len(step3)):
-        tmp = []
-        if re.match('^\n', step3[i]):
-            tmp = step3[i].splitlines()
-            [tmp[i].capitalize() for i in range(len(tmp))]
-            step3[i] = '\n'.join(tmp)
-        elif re.match('^[ ]', step3[i]):
-            tmp = step3[i].strip().capitalize()
-            step3[i] = ''.join(tmp)
+    step3 = re.split(r'([.!?:;](\s))', step2)
+    
+    i = 0
+    while i < len(step3):
+        if step3[i] == '' or step3[i] == ' ':
+            step3.remove(step3[i]) 
         else:
-            step3[i].strip().capitalize()
+            step3[i] = step3[i].capitalize()
+            i += 1
         
-    step4 = '. '.join(step3).strip()
+    step4 = ''.join(step3).replace('\n\n','\n').strip()
 
     tmp = []
     for i in range(len(step4.split(' '))):
@@ -155,15 +152,15 @@ input = """homEwork:
 
  
 
-  You NEED TO normalize it fROM letter CASEs point oF View. also, create one MORE senTENCE witH LAST WoRDS of each existING SENtence and add it to the END OF this Paragraph.
+  You NEED TO normalize it fROM letter CASEs point oF View! also, create? one MORE senTENCE witH LAST WoRDS of each existING SENtence and add it to the END OF this Paragraph.
 
  
 
-  it iZ misspeLLing here. fix“iZ” with correct “is”, but ONLY when it Iz a mistAKE.
+  it iZ misspeLLing here. fix“iZ” with correct “is”, but ONLY when it Iz a mistAKE?
 
  
 
-  last iz TO calculate nuMber OF Whitespace characteRS in this Tex. caREFULL, not only Spaces, but ALL whitespaces. I got 87."""
+  last iz TO calculate nuMber OF; Whitespace characteRS in this Tex. caREFULL, not only Spaces, but ALL whitespaces. I got 87."""
 # -- Positive tests: --
 #print(list_of_dicts_generator(3, 3, 1, 100, 1))
 #print(dict_builder(list_of_dicts_generator(3, 3, 1, 100, 1)))
