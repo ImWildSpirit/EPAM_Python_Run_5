@@ -70,3 +70,7 @@ Failed test
 Issue - missing Author
 <<1>>
 <<>>
+###
+*Bad type*
+Issue - unknown article type
+<<Kharkiv>>
