@@ -11,6 +11,9 @@ class ArticleFromFile(PrivateAd, Review, News):
         self.from_file = from_file
         self.file_name = file_name
         self.validator = True
+        self.err_msg = ''
+        self.err_path = 'Errors_' + self.file_name
+        self.record = 1
         self.unpublished = 0
         super().__init__(file_name)
 
@@ -29,6 +32,7 @@ class ArticleFromFile(PrivateAd, Review, News):
 
         else:
             self.validator = False
+            self.err_msg += 'Expiration date missing or in the past.\n'
             self.unpublished += 1
 
     def publish(self):
@@ -46,14 +50,15 @@ class ArticleFromFile(PrivateAd, Review, News):
 
                     for j in range(len(elem)):
                         if elem[j] == '*N*':
-                            if elem[j + 1] != '' or not findall(r'<<\D*>>', elem[j + 1]):
+                            if elem[j + 1] != '' or not findall(r'<<\b\D*?>>', elem[j + 1]):
                                 elem[j] = ''
 
                             else:
                                 self.validator = False
+                                self.err_msg += 'Missing news text.\n'
                                 self.unpublished += 1
 
-                        elif findall(r'<<\D*>>', elem[j]):
+                        elif findall(r'<<\D*?>>', elem[j]):
                             _city = sub('<<', '', elem[j])
                             self.city = sub('>>', '', _city).strip()
 
@@ -61,6 +66,7 @@ class ArticleFromFile(PrivateAd, Review, News):
                                 elem[j] = sub(self.city, '', self.city)
                             else:
                                 self.validator = False
+                                self.err_msg += 'Missing city.\n'
                                 self.unpublished += 1
 
                     _text = text_normalizer('\n'.join(elem))
@@ -68,6 +74,7 @@ class ArticleFromFile(PrivateAd, Review, News):
                         self.text = _text
                     else:
                         self.validator = False
+                        self.err_msg += 'Missing news text.\n'
                         self.unpublished += 1
 
                     self.time = self.get_time()
@@ -84,10 +91,24 @@ class ArticleFromFile(PrivateAd, Review, News):
 
                             else:
                                 with open(self.file_name, 'w') as file:
-                                    file.write(
-                                        f'News feed:\n\n\n-----News:-----\n{self.text}\n{self.city}, {self.time}')
+                                    file.write(f'News feed:\n\n\n-----News:-----\n{self.text}\n{self.city}, {self.time}')
+                        self.record += 1
                     else:
+                        if not path.exists(self.err_path):
+                            with open(self.err_path, 'w+') as file:
+                                file.write(f'Errors log:\nRecord #{self.record}\nType: News\nIssues: {self.err_msg}')
+
+                        else:
+                            if stat(self.err_path).st_size != 0:
+                                with open(self.err_path, 'a') as file:
+                                    file.write(f'\n\n\nRecord #{self.record}\nType: News\nIssues: {self.err_msg}')
+
+                            else:
+                                with open(self.err_path, 'w') as file:
+                                    file.write(f'Errors log:\n\n\nRecord #{self.record}\nType: News\nIssues: {self.err_msg}')
                         self.validator = True
+                        self.err_msg = ''
+                        self.record += 1
                         continue
 
                 elif findall(r'(\*A\*)', tmp[i]):
@@ -109,31 +130,45 @@ class ArticleFromFile(PrivateAd, Review, News):
 
                         elif findall(r'<<>>', elem[j]):
                             self.validator = False
+                            self.err_msg += 'Missing expiration date.\n'
                             self.unpublished += 1
 
                         self.text = text_normalizer('\n'.join(elem))
 
                         if self.text == '':
                             self.validator = False
+                            self.err_msg += 'Missing private ad text.\n'
                             self.unpublished += 1
 
                     if self.validator:
                         if not path.exists(self.file_name):
                             with open(self.file_name, 'w+') as file:
-                                file.write(
-                                    f'News feed:\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date}, {self.expire_count}')
+                                file.write(f'News feed:\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date}, {self.expire_count}')
 
                         else:
                             if stat(self.file_name).st_size != 0:
                                 with open(self.file_name, 'a') as file:
-                                    file.write(
-                                        f'\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
+                                    file.write(f'\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
                             else:
                                 with open(self.file_name, 'w') as file:
-                                    file.write(
-                                        f'News feed:\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
+                                    file.write(f'News feed:\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
+                        self.record += 1
                     else:
+                        if not path.exists(self.err_path):
+                            with open(self.err_path, 'w+') as file:
+                                file.write(f'Errors log:\nRecord #{self.record}\nType: Private Ad\nIssues: {self.err_msg}')
+
+                        else:
+                            if stat(self.err_path).st_size != 0:
+                                with open(self.err_path, 'a') as file:
+                                    file.write(f'\n\n\nRecord #{self.record}\nType: Private Ad\nIssues: {self.err_msg}')
+
+                            else:
+                                with open(self.err_path, 'w') as file:
+                                    file.write(f'Errors log:\n\n\nRecord #{self.record}\nType: Private Ad\nIssues: {self.err_msg}')
                         self.validator = True
+                        self.err_msg = ''
+                        self.record += 1
                         continue
 
                 elif findall(r'\*R\*', tmp[i]):
@@ -146,12 +181,13 @@ class ArticleFromFile(PrivateAd, Review, News):
 
                             else:
                                 self.validator = False
+                                self.err_msg += 'Missing review title.\n'
                                 self.unpublished += 1
 
                             elem[j + 1] = ''
                             elem[j] = ''
 
-                        elif findall(r'<<\D*>>', elem[j]):
+                        elif findall(r'<<\b\D*?>>', elem[j]):
                             _author = sub('<<', '', elem[j])
                             self.author = sub('>>', '', _author).strip()
 
@@ -160,21 +196,24 @@ class ArticleFromFile(PrivateAd, Review, News):
 
                             else:
                                 self.validator = False
+                                self.err_msg += 'Missing review author.\n'
                                 self.unpublished += 1
 
-                        elif findall(r'<<\d\d?>>', elem[j]):
+                        elif findall(r'<<\d+>>', elem[j]):
                             _rate = sub('<<', '', elem[j])
                             self.rate = sub('>>', '', _rate).strip()
 
-                            if self.rate != '' or 1 <= int(self.rate) <= 10:
+                            if self.rate != '' and 1 <= int(self.rate) <= 10:
                                 elem[j] = sub(self.rate, '', self.rate)
 
                             else:
                                 self.validator = False
+                                self.err_msg += 'Missing or out of range review rate (expected 1 to 10).\n'
                                 self.unpublished += 1
 
                         elif findall(r'<<>>', elem[j]):
                             self.validator = False
+                            self.err_msg += 'Missing one of the mandatory attributes: title, author or rate.\n'
                             self.unpublished += 1
 
                     _text = text_normalizer('\n'.join(elem))
@@ -184,6 +223,7 @@ class ArticleFromFile(PrivateAd, Review, News):
 
                     else:
                         self.validator = False
+                        self.err_msg += 'Missing review text.\n'
                         self.unpublished += 1
 
                     self.time = self.get_time()
@@ -203,14 +243,51 @@ class ArticleFromFile(PrivateAd, Review, News):
                                 with open(self.file_name, 'w') as file:
                                     file.write(
                                         f'News feed:\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
+                        self.record += 1
+                    
                     else:
-                        self.validator = True
-                        continue
+                        if not path.exists(self.err_path):
+                            with open(self.err_path, 'w+') as file:
+                                file.write(f'Errors log:\nRecord #{self.record}\nType: Review\nIssues: {self.err_msg}')
 
-            remove(self.from_file)
-            print(self.unpublished,
-                  'publications skipped due to errors in the source file.') if self.unpublished > 0 else print(
-                'Success.')
+                        else:
+                            if stat(self.err_path).st_size != 0:
+                                with open(self.err_path, 'a') as file:
+                                    file.write(f'\n\n\nRecord #{self.record}\nType: Review\nIssues: {self.err_msg}')
+
+                            else:
+                                with open(self.err_path, 'w') as file:
+                                    file.write(f'Errors log:\n\n\nRecord #{self.record}\nType: Review\nIssues: {self.err_msg}')
+                        self.validator = True
+                        self.err_msg = ''
+                        self.record += 1
+                        continue
+                
+                elif findall(r'(\*+[^NAR]?\*+)', elem[j]) or not findall(r'\*', elem[j]):
+                    self.unpublished += 1
+                    self.err_msg += 'Unknown article type.\n'
+                    if not path.exists(self.err_path):
+                        with open(self.err_path, 'w+') as file:
+                            file.write(f'Errors log:\nRecord #{self.record}\nType: Unknown\nIssues: {self.err_msg}')
+
+                    else:
+                        if stat(self.err_path).st_size != 0:
+                            with open(self.err_path, 'a') as file:
+                                file.write(f'\n\n\nRecord #{self.record}\nType: Unknown\nIssues: {self.err_msg}')
+
+                        else:
+                            with open(self.err_path, 'w') as file:
+                                file.write(f'Errors log:\n\n\nRecord #{self.record}\nType: Unknown\nIssues: {self.err_msg}')
+                    self.validator = True
+                    self.err_msg = ''
+                    self.record += 1
+                    continue
+
+            if self.unpublished == 0:
+                print('Success.')
+                remove(self.from_file)
+            else:
+                print(self.unpublished, f'publications skipped due to errors in the source file. See all of the issues in the {self.err_path} file')
 
 
 def main(from_file=None, file_name='Publication.txt'):
