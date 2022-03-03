@@ -1,0 +1,115 @@
+[
+{
+    "type": "news",
+    "text": "News text imported from JSON",
+    "city": "Bakhmut"},
+{
+    "type": "ad",
+    "text": "Private ad text imported from JSON",
+    "expiration": "01/01/2023"},
+{
+    "type": "review",
+    "title": "Review from JSON",
+    "text": "Review imported from JSON",
+    "rate": 10,
+    "author": "Artem Larin"
+},
+{
+    "type": "news",
+    "city": "Bakhmut"
+},
+{
+    "type": "news",
+    "text": "News text (JSON) without city."
+},
+{
+    "type": "news",
+    "text":"News text (JSON) with null city.",
+    "city": null
+},
+{
+    "type": "news",
+    "text": null,
+    "city": "News (JSON) with null text"
+},
+{
+    "type": "news",
+    "text": null,
+    "city": null
+},
+{
+    "type": "news"
+},
+{
+    "type": "ad",
+    "text": "Invalid expiration date",
+    "expiration": "01/01/2022"
+},
+{
+    "type": "ad",
+    "text": "Ad without exp. date"
+},
+{
+    "type": "ad",
+    "text": null,
+    "expiration": "01/01/2023"
+},
+{
+    "type": "ad",
+    "expiration": "01/01/2023"
+},
+{
+    "type": "ad"
+},
+{
+    "type": "review",
+    "text": "Missing title in review",
+    "author": "Negative test",
+    "rate": 1
+},
+{
+    "type": "review",
+    "title": "Missing text in review",
+    "author": "Negative test",
+    "rate": 1
+},
+{
+    "type": "review",
+    "title": "Missing rate in review",
+    "text": "Missing rate in review",
+    "author": "Negative test"
+},
+{
+    "type": "review",
+    "title": "Negative test",
+    "text": "Missing author in review",
+    "rate": 1
+},
+{
+    "type": "review",
+    "title": null,
+    "text": null,
+    "author": null,
+    "rate": null
+},
+{
+    "type": "review"
+},
+{
+    "type": null
+},
+{
+    "text": "Typeless news",
+    "city": "Bakhmut"
+},
+{
+    "text": "Typeless ad",
+    "expiration": "01/01/2023"
+},
+{
+    "text": "Typeless review",
+    "title": "Missing type",
+    "author":"Negative test",
+    "rate": 1
+}
+]

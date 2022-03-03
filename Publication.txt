@@ -44,3 +44,20 @@ Sed vel elit auctor
 sodales neque vitae, aliquet est.
 Final score: 10/10,
 Artem Larin, 19/02/2022
+
+
+-----News:-----
+News text imported from JSON
+Bakhmut, 03/03/2022
+
+
+-----Private ad:-----
+Private ad text imported from JSON
+Actual until: 01/01/2023, 304 days till expire.
+
+
+-----Review:-----
+Review from JSON
+Review imported from JSON
+Final score: 10/10,
+Artem Larin, 03/03/2022
