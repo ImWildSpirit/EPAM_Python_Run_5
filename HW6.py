@@ -33,7 +33,6 @@ class ArticleFromFile(PrivateAd, Review, News):
         else:
             self.validator = False
             self.err_msg += 'Expiration date missing or in the past.\n'
-            self.unpublished += 1
 
     def publish(self):
         if self.from_file is None:
@@ -56,7 +55,6 @@ class ArticleFromFile(PrivateAd, Review, News):
                             else:
                                 self.validator = False
                                 self.err_msg += 'Missing news text.\n'
-                                self.unpublished += 1
 
                         elif findall(r'<<\D*?>>', elem[j]):
                             _city = sub('<<', '', elem[j])
@@ -67,7 +65,6 @@ class ArticleFromFile(PrivateAd, Review, News):
                             else:
                                 self.validator = False
                                 self.err_msg += 'Missing city.\n'
-                                self.unpublished += 1
 
                     _text = text_normalizer('\n'.join(elem))
                     if _text != '':
@@ -75,7 +72,6 @@ class ArticleFromFile(PrivateAd, Review, News):
                     else:
                         self.validator = False
                         self.err_msg += 'Missing news text.\n'
-                        self.unpublished += 1
 
                     self.time = self.get_time()
 
@@ -94,6 +90,8 @@ class ArticleFromFile(PrivateAd, Review, News):
                                     file.write(f'News feed:\n\n\n-----News:-----\n{self.text}\n{self.city}, {self.time}')
                         self.record += 1
                     else:
+                        self.unpublished += 1
+
                         if not path.exists(self.err_path):
                             with open(self.err_path, 'w+') as file:
                                 file.write(f'Errors log:\nRecord #{self.record}\nType: News\nIssues: {self.err_msg}')
@@ -131,14 +129,12 @@ class ArticleFromFile(PrivateAd, Review, News):
                         elif findall(r'<<>>', elem[j]):
                             self.validator = False
                             self.err_msg += 'Missing expiration date.\n'
-                            self.unpublished += 1
 
                         self.text = text_normalizer('\n'.join(elem))
 
                         if self.text == '':
                             self.validator = False
                             self.err_msg += 'Missing private ad text.\n'
-                            self.unpublished += 1
 
                     if self.validator:
                         if not path.exists(self.file_name):
@@ -154,6 +150,8 @@ class ArticleFromFile(PrivateAd, Review, News):
                                     file.write(f'News feed:\n\n\n-----Private ad:-----\n{self.text}\nActual until: {self.exp_date.strftime("%d/%m/%Y")}, {self.expire_count}')
                         self.record += 1
                     else:
+                        self.unpublished += 1
+
                         if not path.exists(self.err_path):
                             with open(self.err_path, 'w+') as file:
                                 file.write(f'Errors log:\nRecord #{self.record}\nType: Private Ad\nIssues: {self.err_msg}')
@@ -182,7 +180,6 @@ class ArticleFromFile(PrivateAd, Review, News):
                             else:
                                 self.validator = False
                                 self.err_msg += 'Missing review title.\n'
-                                self.unpublished += 1
 
                             elem[j + 1] = ''
                             elem[j] = ''
@@ -197,7 +194,6 @@ class ArticleFromFile(PrivateAd, Review, News):
                             else:
                                 self.validator = False
                                 self.err_msg += 'Missing review author.\n'
-                                self.unpublished += 1
 
                         elif findall(r'<<\d+>>', elem[j]):
                             _rate = sub('<<', '', elem[j])
@@ -209,12 +205,10 @@ class ArticleFromFile(PrivateAd, Review, News):
                             else:
                                 self.validator = False
                                 self.err_msg += 'Missing or out of range review rate (expected 1 to 10).\n'
-                                self.unpublished += 1
 
                         elif findall(r'<<>>', elem[j]):
                             self.validator = False
                             self.err_msg += 'Missing one of the mandatory attributes: title, author or rate.\n'
-                            self.unpublished += 1
 
                     _text = text_normalizer('\n'.join(elem))
 
@@ -224,28 +218,27 @@ class ArticleFromFile(PrivateAd, Review, News):
                     else:
                         self.validator = False
                         self.err_msg += 'Missing review text.\n'
-                        self.unpublished += 1
 
                     self.time = self.get_time()
 
                     if self.validator:
+                        
                         if not path.exists(self.file_name):
                             with open(self.file_name, 'w+') as file:
-                                file.write(
-                                    f'News feed:\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
+                                file.write(f'News feed:\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
 
                         else:
                             if stat(self.file_name).st_size != 0:
                                 with open(self.file_name, 'a') as file:
-                                    file.write(
-                                        f'\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
+                                    file.write(f'\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
                             else:
                                 with open(self.file_name, 'w') as file:
-                                    file.write(
-                                        f'News feed:\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
+                                    file.write(f'News feed:\n\n\n-----Review:-----\n{self.title}\n{self.text}\nFinal score: {self.rate}/10,\n{self.author}, {self.time}')
                         self.record += 1
                     
                     else:
+                        self.unpublished += 1
+
                         if not path.exists(self.err_path):
                             with open(self.err_path, 'w+') as file:
                                 file.write(f'Errors log:\nRecord #{self.record}\nType: Review\nIssues: {self.err_msg}')
