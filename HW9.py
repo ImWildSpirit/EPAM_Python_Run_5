@@ -271,7 +271,7 @@ class ArticleFromXML(ArticleFromJSON):
 
                 if self.unpublished == 0:
                     print('Success.')
-                    #remove(self.from_file)
+                    remove(self.from_file)
                 
                 else:
                     print(self.unpublished, f'publications skipped due to errors in the source file. See all of the issues in the {self.err_path} file')
