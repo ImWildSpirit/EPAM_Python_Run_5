@@ -61,3 +61,20 @@ Review from JSON
 Review imported from JSON
 Final score: 10/10,
 Artem Larin, 03/03/2022
+
+
+-----News:-----
+News text imported from XML
+Bakhmut, 05/03/2022
+
+
+-----Private ad:-----
+Private ad text imported from XML
+Actual until: 01/01/2023, 302 days till expire.
+
+
+-----Review:-----
+Review from XML
+Review imported from XML
+Final score: 10/10,
+Artem Larin, 05/03/2022

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <article type='news'>
+    <text>News text imported from XML</text>
+    <city>Bakhmut</city>
+  </article>
+  <article type='ad'>
+    <text>Private ad text imported from XML</text>
+    <expiration>01/01/2023</expiration>
+  </article>
+  <article type='review'>
+    <title>Review from XML</title>
+    <text>Review imported from XML</text>
+    <rate>10</rate>
+    <author>Artem Larin</author>
+  </article>
+  <article type='news'>
+    <city>Bakhmut</city>
+  </article>
+  <article type='news'>
+    <text>News text (XML) without city.</text>
+  </article>
+  <article type='news'>
+    <text>News text (XML) with null city.</text>
+    <city/>
+  </article>
+  <article type='news'>
+    <text/>
+    <city>News (XML) with null text</city>
+  </article>
+  <article type='news'>
+    <text/>
+    <city/>
+  </article>
+  <article type='news'>
+  </article>
+  <article type='ad'>
+    <text>Invalid expiration date</text>
+    <expiration>01/01/2022</expiration>
+  </article>
+  <article type='ad'>
+    <text>Ad without exp. date</text>
+  </article>
+  <article type='ad'>
+    <text/>
+    <expiration>01/01/2023</expiration>
+  </article>
+  <article type='ad'>
+    <expiration>01/01/2023</expiration>
+  </article>
+  <article type='ad'>
+  </article>
+  <article type='review'>
+    <text>Missing title in review</text>
+    <author>Negative test</author>
+    <rate>1</rate>
+  </article>
+  <article type='review'>
+    <title>Missing text in review</title>
+    <author>Negative test</author>
+    <rate>1</rate>
+  </article>
+  <article type='review'>
+    <title>Missing rate in review</title>
+    <text>Missing rate in review</text>
+    <author>Negative test</author>
+  </article>
+  <article type='review'>
+    <title>Negative test</title>
+    <text>Missing author in review</text>
+    <rate>1</rate>
+  </article>
+  <article type='review'>
+    <title/>
+    <text/>
+    <author/>
+    <rate/>
+  </article>
+  <article type='review'>
+    <rate>XML</rate>
+  </article>
+  <article>
+    <text>Typeless news</text>
+    <city>Bakhmut</city>
+  </article>
+  <article>
+    <text>Typeless ad</text>
+    <expiration>01/01/2023</expiration>
+  </article>
+  <article>
+    <text>Typeless review</text>
+    <title>Missing type</title>
+    <author>Negative test</author>
+    <rate>1</rate>
+  </article>
+</root>
