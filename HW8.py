@@ -363,7 +363,7 @@ if __name__ == '__main__':
     file_name = args.dest
 
     if from_file is None and file_name is None:
-        print('----Script without arguments will run with testing defaults.----\nSource file - Source.txt,\nDestination file - Publication.txt\nUse -h or --help to show available arguments.\n\n')
+        print('----Script without arguments will run with testing defaults.----\nSource file - Source.json,\nDestination file - Publication.txt\nUse -h or --help to show available arguments.\n\n')
         main(from_file='Source.json', file_name='Publication.txt')
     else:
         main(from_file)
