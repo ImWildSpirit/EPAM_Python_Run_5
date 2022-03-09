@@ -4,68 +4,73 @@ from string import ascii_uppercase, ascii_lowercase
 from HW6 import ArticleFromFile
 import argparse
 
-def main(from_file, file_name='Publication.txt'):
-    ArticleFromFile(from_file, file_name)
-    
-    with open(file_name) as file:
-        with open('Word_count.csv', 'w') as csvfile:
-            wordslist = file.read().lower().split()
+class CSVStatistic:
+    def __init__(self, file_name):
+        self.file_name = file_name
+        with open(self.file_name) as file:
+            with open('Word_count.csv', 'w') as csvfile:
+                wordslist = file.read().lower().split()
 
-            for word in range(len(wordslist)):
-                wordslist[word] = sub(r'\W|\d', '', wordslist[word])
+                for word in range(len(wordslist)):
+                    wordslist[word] = sub(r'\W|\d', '', wordslist[word])
 
-            wordslist = list(filter(None, wordslist))
-            result = dict()
-        
-            for word in wordslist:
-                if word in result:
-                    result[word] += 1
-                else:
-                    result[word] = 1
+                wordslist = list(filter(None, wordslist))
+                result = dict()
+            
+                for word in wordslist:
+                    if word in result:
+                        result[word] += 1
+                    else:
+                        result[word] = 1
 
-            writer = csv.writer(csvfile, delimiter = '-')
+                writer = csv.writer(csvfile, delimiter = '-')
 
-            for k, v in result.items():
-                writer.writerow([k, v])
+                for k, v in result.items():
+                    writer.writerow([k, v])
 
-    with open(file_name) as file:
-        with open('Letter count.csv', 'w') as csvfile:
-            _text = file.read()
-            letter_count = 0
-            lower_count = 0
-            upper_count = 0
-            letter_dict = dict()
-            upper_list = []
+        with open(self.file_name) as file:
+            with open('Letter count.csv', 'w') as csvfile:
+                _text = file.read()
+                letter_count = 0
+                lower_count = 0
+                upper_count = 0
+                letter_dict = dict()
+                upper_list = []
 
-            headers = ['letter', 'count_all', 'count_uppercase', 'percentage']
-            writer = csv.DictWriter(csvfile, fieldnames=headers)
-            writer.writeheader()
+                headers = ['letter', 'count_all', 'count_uppercase', 'percentage']
+                writer = csv.DictWriter(csvfile, fieldnames=headers)
+                writer.writeheader()
 
-            for i in _text:
-                if i.isalpha():
-                    if i in ascii_lowercase:
-                        lower_count += 1
-                        letter_count += 1
-                        if i in letter_dict:
-                            letter_dict[i] += 1
-                        else: 
-                            letter_dict[i] = 1
-                    elif i in ascii_uppercase:
-                        upper_count += 1
-                        upper_list.append(i)
-                        letter_count += 1
-                        if i.lower() in letter_dict:
-                            letter_dict[i.lower()] += 1
-                        else: 
-                            letter_dict[i.lower()] = 1
+                for i in _text:
+                    if i.isalpha():
+                        if i in ascii_lowercase:
+                            lower_count += 1
+                            letter_count += 1
+                            if i in letter_dict:
+                                letter_dict[i] += 1
+                            else: 
+                                letter_dict[i] = 1
+                        elif i in ascii_uppercase:
+                            upper_count += 1
+                            upper_list.append(i)
+                            letter_count += 1
+                            if i.lower() in letter_dict:
+                                letter_dict[i.lower()] += 1
+                            else: 
+                                letter_dict[i.lower()] = 1
+                        else:
+                            continue
                     else:
                         continue
-                else:
-                    continue
-        
-            for k, v in letter_dict.items():
-                writer.writerow({'letter': k, 'count_all': v + upper_list.count(k.upper()), 'count_uppercase': upper_list.count(k.upper()), 'percentage': f'{round(int(v + upper_list.count(k.upper())) / letter_count * 100, 2)}%'})
+            
+                for k, v in letter_dict.items():
+                    writer.writerow({'letter': k, 'count_all': v + upper_list.count(k.upper()), 'count_uppercase': upper_list.count(k.upper()), 'percentage': f'{round(int(v + upper_list.count(k.upper())) / letter_count * 100, 2)}%'})
 
+
+def main(from_file, file_name='Publication.txt'):
+    ArticleFromFile(from_file, file_name)
+    CSVStatistic(file_name)
+    
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
