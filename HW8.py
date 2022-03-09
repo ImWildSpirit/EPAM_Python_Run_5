@@ -1,6 +1,6 @@
 import json
 from os import path, stat, remove
-from HW7 import ArticleFromFile
+from HW7 import ArticleFromFile, CSVStatistic
 from HW5 import News, PrivateAd, Review
 from datetime import datetime
 import argparse
@@ -273,14 +273,17 @@ def main(from_file=None, file_name='Publication.txt'):
         if article == '1':
             print('------------Adding news------------')
             News(file_name)
+            CSVStatistic(file_name)
 
         elif article == '2':
             print('------------Adding private ad------------')
             PrivateAd(file_name)
+            CSVStatistic(file_name)
 
         elif article == '3':
             print('------------Adding review------------')
             Review(file_name)
+            CSVStatistic(file_name)
 
         elif article == '4':
             if from_file is None:
@@ -289,6 +292,7 @@ def main(from_file=None, file_name='Publication.txt'):
             else:
                 print('------------Uploading------------')
                 ArticleFromFile(from_file, file_name)
+                CSVStatistic(file_name)
         
         elif article == '5':
             if from_file is None:
@@ -297,6 +301,7 @@ def main(from_file=None, file_name='Publication.txt'):
             else:
                 print('------------Uploading------------')
                 ArticleFromJSON(from_file, file_name)
+                CSVStatistic(file_name)
 
         else:
             print('Incorrect article type\n')
